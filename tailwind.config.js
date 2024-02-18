@@ -17,6 +17,9 @@ export default {
         'fold': {
           max: '320px',
         }
+      },
+      backgroundImage: {
+        'home-pattern': 'url("/bg-illustration.svg")'
       }
     },
   },
