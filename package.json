@@ -1,11 +1,12 @@
 {
   "name": "qr-code-generator",
+  "homepage": "https://github.miguel2351.dev/qr-code-generator/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build --base=/qr-code-generator/",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "deploy": "npm run build && gh-pages -d dist"
