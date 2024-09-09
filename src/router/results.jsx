@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { QRCodeCanvas } from 'qrcode.react'
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function QrResult() {
   const [url, setUrl] = useState('');
@@ -22,6 +23,7 @@ function QrResult() {
 
   const onCopyURL = () => {
     navigator.clipboard.writeText(url)
+    toast.success('URL copied to clipboard')
   }
 
   useEffect(() => {
@@ -72,10 +74,10 @@ function QrResult() {
           </div>
         </div>
         <div className="flex items-stretch gap-x-4">
-          <button className='bg-primary p-4 rounded-md' onClick={onDownloadHandler}>
+          <button className='bg-primary p-4 rounded-md transition-transform hover:scale-95' onClick={onDownloadHandler}>
             Download QR
           </button>
-          <button type='button' className='bg-primary p-4 rounded-md' onClick={onCopyURL}>
+          <button type='button' className='bg-primary p-4 rounded-md transition-transform hover:scale-95' onClick={onCopyURL}>
             Share
           </button>
         </div>

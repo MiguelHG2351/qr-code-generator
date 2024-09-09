@@ -1,9 +1,25 @@
 import { useState } from 'react'
+import { useSubmit } from 'react-router-dom'
 import { Link } from 'react-router-dom'
-import { Form } from 'react-router-dom'
+import { isUrl } from '../utils/validation'
+import { toast } from 'react-toastify'
 
 export default function HomePage() {
   const [url, setUrl] = useState('')
+  const submit = useSubmit()
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target)
+
+    if (!isUrl(formData.get('url'))) return toast.error('Please enter a valid url')
+
+    console.log('/result?' + new URLSearchParams({ url: formData.get('url') }).toString())
+    submit({ url: formData.get('url') }, {
+      method: 'GET',
+      action: '/result?'
+    })
+  }
 
   return (
     <main className='max-w-[1440px] min-h-screen m-auto flex justify-center items-center flex-col gap-y-4 md:gap-y-12 bg-home-pattern bg-no-repeat bg-right'>
@@ -25,10 +41,10 @@ export default function HomePage() {
         </svg>
       </Link>
       <div className="flex justify-center w-11/12 lg:w-full">
-        <Form id='qr-form' action='/result' className='md:border-primary p-2 flex flex-col md:flex-row gap-y-4 w-full max-w-2xl md:border-2 rounded-2xl'>
+        <form id='qr-form' onSubmit={onSubmit} className='md:border-primary p-2 flex flex-col md:flex-row gap-y-4 w-full max-w-2xl md:border-2 rounded-2xl'>
           <input type="url" name="url" value={url} onChange={(e) => setUrl(e.target.value)} placeholder='Enter an url' className='border-primary border-2 rounded-lg md:border-none bg-secondary outline-none flex-1 px-2 py-4 nd:border-none' />
           <button type="submit" className='bg-primary px-8 py-4 rounded-lg transition-transform hover:scale-95'>QR code</button>
-        </Form>
+        </form>
       </div>
     </main>
   )
